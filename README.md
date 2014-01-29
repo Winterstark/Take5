@@ -20,7 +20,7 @@ Installation
 --------------
 
 1. (You need to have [.NET framework](http://www.microsoft.com/en-us/download/details.aspx?id=30653) installed on your computer)
-2. Download **RELEASE**
+2. Download [the release](https://github.com/Winterstark/Take5/releases)
 3. Extract
 4. Run Take5.exe
 
