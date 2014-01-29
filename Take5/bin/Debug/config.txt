@@ -1,0 +1,11 @@
+45
+60
+1232
+600
+Segoe Print
+True
+True
+True
+True
+Random from list
+False

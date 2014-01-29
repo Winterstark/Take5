@@ -1,0 +1,12 @@
+SKIP
+"Take5 is a simple application designed to remind you to take regular breaks from your computer."-this
+"Edit this value to modify the length of time between two breaks."->(numWorkDuration)
+"This is how long the break lasts."->(numBreakDuration)
+"The reminder will show up on your screen as this coffee cup icon."->[picCoffee]
+"To start your break just click on the coffee cup when it pops up."->(picCoffee)*You can move the coffee cup icon and Take5 will remember the new location.
+"This option temporarily freezes Take5's break countdown while you are in a fullscreen application, such as a game or video."->(checkPauseFullscreen)
+"This option will reset and freeze Take5's break countdown after you haven't moved the mouse or pressed a button for at least a minute."->(checkPauseIdle)
+"You can change the appearance of the message text by modifying its font..."->(comboFont)
+"...and you can edit the color of the coaster displayed beneath the coffee cup, if you want to."->(comboColor)*Besides selecting a color from the list, you can also choose any color value in the form of (RED_VALUE, GREEN_VALUE, BLUE_VALUE), where each value ranges from 0 to 255.
+"Uncheck this option to mute the Beep that Take5 plays to remind you of the break."->(checkSoundBreak)
+"Uncheck this option to mute the ticking sounds that can be heard during the break."->(checkSoundTick)
