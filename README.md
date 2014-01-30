@@ -41,3 +41,9 @@ Right-clicking the icon will show the context menu with the following options:
 5. Exit program
 
 When the countdown reaches zero the reminder will popup on the screen. You can move the popup around the screen and it will remember its position. To start the break click the popup - a timer will begin displaying how many seconds are left in the break. When the break ends the popup will disappear.
+
+
+Credits
+--------
+
+Coffee cup icon by ~b0bd0gz ![@DeviantART](http://b0bd0gz.deviantart.com/art/Coffee-by-b0bd0gz-34281167)
