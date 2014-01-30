@@ -46,4 +46,4 @@ When the countdown reaches zero the reminder will popup on the screen. You can m
 Credits
 --------
 
-Coffee cup icon by ~b0bd0gz ![@DeviantART](http://b0bd0gz.deviantart.com/art/Coffee-by-b0bd0gz-34281167)
+Coffee cup icon by ~b0bd0gz @ [DeviantART](http://b0bd0gz.deviantart.com/art/Coffee-by-b0bd0gz-34281167)
