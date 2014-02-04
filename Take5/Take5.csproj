@@ -57,8 +57,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GenericForms">
-      <HintPath>..\..\GenericForms\GenericForms\bin\Release\GenericForms.dll</HintPath>
+    <Reference Include="GenericForms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>GenericForms\GenericForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
