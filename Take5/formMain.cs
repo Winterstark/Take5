@@ -116,6 +116,7 @@ namespace Take5
                         this.Top = scrY - this.Height - 24;
 
                     //TakeBreak.Text = randomButtonText();
+                    TakeBreak.Text = "You need to take a break";
                     
                     if (playBeep)
                         PlaySound(Application.StartupPath + "\\beep.wav", 0, SND_ASYNC);
