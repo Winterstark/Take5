@@ -45,7 +45,7 @@ namespace Take5
             public int Bottom;
         }
 
-        private enum Fade { FadeIn, FadeOut }
+        private enum Fade { In, Out }
 
         private const int SM_CXSCREEN = 0;
         private const int SM_CYSCREEN = 1;
@@ -410,6 +410,12 @@ namespace Take5
         {
             minsRemain = countMins;
             secsRemain = 0;
+
+            if (this.Opacity > 0)
+            {
+                breakSecsRemain = 0;
+                timerBreak.Enabled = true;
+            }
         }
 
         private void Tray_RunAtStartup_Click(object sender, EventArgs e)
@@ -484,37 +490,16 @@ namespace Take5
                     if (playBeep)
                         PlaySound(Application.StartupPath + "\\beep.wav", 0, SND_ASYNC);
 
-                    effect = Fade.FadeIn;
+                    effect = Fade.In;
                     timerFadeEffect.Enabled = true;
                     timerCountdown.Enabled = false;
                 }
             }
         }
-
-        private void timerBreak_Tick(object sender, EventArgs e)
-        {
-            TakeBreak.Text = breakSecsRemain.ToString() + " seconds left";
-            if (playTicks)
-                PlaySound(Application.StartupPath + "\\tick.wav", 0, SND_ASYNC);
-
-            if (breakSecsRemain > 0)
-                breakSecsRemain--;
-            else
-            {
-                if (playBeep)
-                    PlaySound(Application.StartupPath + "\\beep2.wav", 0, SND_ASYNC);
-
-                effect = Fade.FadeOut;
-                timerFadeEffect.Enabled = true;
-                timerBreak.Enabled = false;
-
-                TakeBreak.Enabled = true;
-            }
-        }
-
+        
         private void timerFadeEffect_Tick(object sender, EventArgs e)
         {
-            if (effect == Fade.FadeIn)
+            if (effect == Fade.In)
             {
                 if (this.Opacity < 1)
                     this.Opacity += 0.05;
@@ -535,5 +520,25 @@ namespace Take5
             }
         }
 
+        private void timerBreak_Tick(object sender, EventArgs e)
+        {
+            TakeBreak.Text = breakSecsRemain.ToString() + " seconds left";
+            if (playTicks)
+                PlaySound(Application.StartupPath + "\\tick.wav", 0, SND_ASYNC);
+
+            if (breakSecsRemain > 0)
+                breakSecsRemain--;
+            else
+            {
+                if (playBeep)
+                    PlaySound(Application.StartupPath + "\\beep2.wav", 0, SND_ASYNC);
+
+                effect = Fade.Out;
+                timerFadeEffect.Enabled = true;
+                timerBreak.Enabled = false;
+
+                TakeBreak.Enabled = true;
+            }
+        }
     }
 }
