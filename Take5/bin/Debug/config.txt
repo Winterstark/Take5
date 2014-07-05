@@ -1,7 +1,7 @@
 45
 60
 1232
-600
+595
 Segoe Print
 True
 True

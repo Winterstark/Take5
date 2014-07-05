@@ -135,9 +135,7 @@ namespace Take5
                 PlaySound(Application.StartupPath + "\\tick.wav", 0, SND_ASYNC);
 
             if (breakSecsRemain > 0)
-            {
                 breakSecsRemain--;
-            }
             else
             {
                 if (playBeep)
@@ -459,7 +457,7 @@ namespace Take5
 
         private void TakeBreak_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && (e.X != prevX || e.Y != prevY))
             {
                 movedAround = true;
 
