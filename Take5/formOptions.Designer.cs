@@ -92,7 +92,7 @@
             this.checkPauseFullscreen.Location = new System.Drawing.Point(12, 136);
             this.checkPauseFullscreen.Name = "checkPauseFullscreen";
             this.checkPauseFullscreen.Size = new System.Drawing.Size(230, 17);
-            this.checkPauseFullscreen.TabIndex = 7;
+            this.checkPauseFullscreen.TabIndex = 5;
             this.checkPauseFullscreen.Text = "Pause countdown in fullscreen applications";
             this.checkPauseFullscreen.UseVisualStyleBackColor = true;
             // 
@@ -102,7 +102,7 @@
             this.checkPauseIdle.Location = new System.Drawing.Point(12, 159);
             this.checkPauseIdle.Name = "checkPauseIdle";
             this.checkPauseIdle.Size = new System.Drawing.Size(181, 17);
-            this.checkPauseIdle.TabIndex = 8;
+            this.checkPauseIdle.TabIndex = 6;
             this.checkPauseIdle.Text = "Reset countdown when user idle";
             this.checkPauseIdle.UseVisualStyleBackColor = true;
             // 
@@ -112,7 +112,7 @@
             this.checkSoundBreak.Location = new System.Drawing.Point(12, 193);
             this.checkSoundBreak.Name = "checkSoundBreak";
             this.checkSoundBreak.Size = new System.Drawing.Size(123, 17);
-            this.checkSoundBreak.TabIndex = 9;
+            this.checkSoundBreak.TabIndex = 7;
             this.checkSoundBreak.Text = "Play sound on break";
             this.checkSoundBreak.UseVisualStyleBackColor = true;
             // 
@@ -122,7 +122,7 @@
             this.checkSoundTick.Location = new System.Drawing.Point(12, 216);
             this.checkSoundTick.Name = "checkSoundTick";
             this.checkSoundTick.Size = new System.Drawing.Size(160, 17);
-            this.checkSoundTick.TabIndex = 10;
+            this.checkSoundTick.TabIndex = 8;
             this.checkSoundTick.Text = "Ticking sounds during break";
             this.checkSoundTick.UseVisualStyleBackColor = true;
             // 
@@ -143,7 +143,7 @@
             this.linkAbout.Location = new System.Drawing.Point(281, 9);
             this.linkAbout.Name = "linkAbout";
             this.linkAbout.Size = new System.Drawing.Size(196, 66);
-            this.linkAbout.TabIndex = 13;
+            this.linkAbout.TabIndex = 9;
             this.linkAbout.TabStop = true;
             this.linkAbout.Text = "This small piece of eye-saving, caffeine-inspired software is freeware.\r\nWritten " +
     "by Winterstark";
@@ -158,7 +158,7 @@
             this.linkContact.Location = new System.Drawing.Point(281, 76);
             this.linkContact.Name = "linkContact";
             this.linkContact.Size = new System.Drawing.Size(196, 50);
-            this.linkContact.TabIndex = 14;
+            this.linkContact.TabIndex = 10;
             this.linkContact.TabStop = true;
             this.linkContact.Text = "Send any comments, requests, or bug reports to winterstark@gmail.com. Thanks!";
             this.linkContact.UseCompatibleTextRendering = true;
@@ -187,7 +187,7 @@
             this.comboColor.Location = new System.Drawing.Point(87, 101);
             this.comboColor.Name = "comboColor";
             this.comboColor.Size = new System.Drawing.Size(155, 21);
-            this.comboColor.TabIndex = 16;
+            this.comboColor.TabIndex = 4;
             this.comboColor.Leave += new System.EventHandler(this.comboColor_Leave);
             // 
             // picCoffee
@@ -215,7 +215,7 @@
             0});
             this.numWorkDuration.Name = "numWorkDuration";
             this.numWorkDuration.Size = new System.Drawing.Size(58, 20);
-            this.numWorkDuration.TabIndex = 19;
+            this.numWorkDuration.TabIndex = 1;
             this.numWorkDuration.Value = new decimal(new int[] {
             1,
             0,
@@ -237,7 +237,7 @@
             0});
             this.numBreakDuration.Name = "numBreakDuration";
             this.numBreakDuration.Size = new System.Drawing.Size(58, 20);
-            this.numBreakDuration.TabIndex = 20;
+            this.numBreakDuration.TabIndex = 2;
             this.numBreakDuration.Value = new decimal(new int[] {
             5,
             0,
@@ -251,7 +251,7 @@
             this.comboFont.Location = new System.Drawing.Point(46, 72);
             this.comboFont.Name = "comboFont";
             this.comboFont.Size = new System.Drawing.Size(196, 21);
-            this.comboFont.TabIndex = 21;
+            this.comboFont.TabIndex = 3;
             // 
             // formOptions
             // 
