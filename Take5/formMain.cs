@@ -65,113 +65,6 @@ namespace Take5
         private bool pauseWhenFullscreen, resetWhenIdle, playBeep, playTicks;
 
 
-        public formMain()
-        {
-            InitializeComponent();
-        }
-
-        private void timerCountdown_Tick(object sender, EventArgs e)
-        {
-            string countdown = secsRemain.ToString();
-
-            if (countdown.Length == 1)
-                countdown = "0" + countdown;
-            
-            trayIcon.Text = minsRemain.ToString() + ":" + countdown;
-
-            if (pauseWhenFullscreen && userInFullscreen())
-                return;
-            
-            if (resetWhenIdle && userIdle())
-            {
-                minsRemain = countMins;
-                secsRemain = 0;
-                return;
-            }
-
-            if (secsRemain > 0)
-                secsRemain--;
-            else
-            {
-                secsRemain = 59;
-
-                if (minsRemain > 0)
-                    minsRemain--;
-                else
-                {
-                    scrX = GetSystemMetrics(SM_CXSCREEN);
-                    scrY = GetSystemMetrics(SM_CYSCREEN);
-                    
-                    this.Opacity = 0;
-                    this.Show();
-
-                    //check if coffee cup outside screen bounds
-                    if (this.Left < 0)
-                        this.Left = 0;
-                    if (this.Left + this.Width > scrX)
-                        this.Left = scrX - this.Width;
-                    if (this.Top < 0)
-                        this.Top = 0;
-                    if (this.Top + this.Height > scrY)
-                        this.Top = scrY - this.Height - 24;
-
-                    //TakeBreak.Text = randomButtonText();
-                    TakeBreak.Text = "You need to take a break";
-                    
-                    if (playBeep)
-                        PlaySound(Application.StartupPath + "\\beep.wav", 0, SND_ASYNC);
-
-                    effect = Fade.FadeIn;
-                    timerFadeEffect.Enabled = true;
-                    timerCountdown.Enabled = false;
-                }
-            }
-        }
-
-        private void timerBreak_Tick(object sender, EventArgs e)
-        {
-            TakeBreak.Text = breakSecsRemain.ToString() + " seconds left";
-            if (playTicks)
-                PlaySound(Application.StartupPath + "\\tick.wav", 0, SND_ASYNC);
-
-            if (breakSecsRemain > 0)
-                breakSecsRemain--;
-            else
-            {
-                if (playBeep)
-                    PlaySound(Application.StartupPath + "\\beep2.wav", 0, SND_ASYNC);
-
-                effect = Fade.FadeOut;
-                timerFadeEffect.Enabled = true;
-                timerBreak.Enabled = false;
-
-                TakeBreak.Enabled = true;
-            }
-        }
-
-        private void timerFadeEffect_Tick(object sender, EventArgs e)
-        {
-            if (effect == Fade.FadeIn)
-            {
-                if (this.Opacity < 1)
-                    this.Opacity += 0.05;
-                else
-                    timerFadeEffect.Enabled = false;
-            }
-            else
-            {
-                if (this.Opacity > 0)
-                    this.Opacity -= 0.05;
-                else
-                {
-                    minsRemain = countMins;
-                    timerCountdown.Enabled = true;
-                    timerFadeEffect.Enabled = false;
-                    this.Hide();
-                }
-            }
-        }
-
         private bool userInFullscreen()
         {
             IntPtr fgWindow = GetForegroundWindow();
@@ -220,7 +113,7 @@ namespace Take5
                 return false;
         }
 
-        public void loadOptions()
+        public void LoadOptions()
         {
             try
             {
@@ -255,7 +148,7 @@ namespace Take5
             }
         }
 
-        public void saveOptions()
+        public void SaveOptions()
         {
             System.IO.StreamWriter file = new System.IO.StreamWriter(Application.StartupPath + "\\config.txt");
 
@@ -305,7 +198,7 @@ namespace Take5
             }
         }
 
-        public void extractRGB()
+        private void extractRGB()
         {
             if (coasterColor == "Random from list")
             {
@@ -388,9 +281,15 @@ namespace Take5
             }
         }
 
+
+        public formMain()
+        {
+            InitializeComponent();
+        }
+
         private void formMain_Load(object sender, EventArgs e)
         {
-            loadOptions();
+            LoadOptions();
 
             trayMenu = new ContextMenu();
 
@@ -435,16 +334,11 @@ namespace Take5
                 clrG = 255;
                 clrB = 0;
                 coasterColor = "Random from list";
-                saveOptions();
+                SaveOptions();
                 b = new SolidBrush(Color.FromArgb(clrR, clrG, clrB));
             }
             
             canvas.FillEllipse(b, 12, 162, 338, 95);
-        }
-
-        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            showOptions();
         }
 
         private void TakeBreak_MouseDown(object sender, MouseEventArgs e)
@@ -466,49 +360,11 @@ namespace Take5
             }
         }
 
-        private void Tray_Options_Click(object sender, EventArgs e)
-        {
-            showOptions();
-        }
-
-        private void Tray_TakeBreakNow_Click(object sender, EventArgs e)
-        {
-            minsRemain = 0;
-            secsRemain = 0;
-        }
-
-        private void Tray_Reset_Click(object sender, EventArgs e)
-        {
-            minsRemain = countMins;
-            secsRemain = 0;
-        }
-
-        private void Tray_Exit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void Tray_RunAtStartup_Click(object sender, EventArgs e)
-        {
-            RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-
-            if (trayMenu.MenuItems[3].Checked == false)
-            {
-                rkApp.SetValue("Take5", Application.ExecutablePath.ToString());
-                trayMenu.MenuItems[3].Checked = true;
-            }
-            else
-            {
-                rkApp.DeleteValue("Take5", true);
-                trayMenu.MenuItems[3].Checked = false;
-            }
-        }
-        
         private void TakeBreak_MouseUp(object sender, MouseEventArgs e)
         {
             if (movedAround)
             {
-                saveOptions();
+                SaveOptions();
 
                 if (formOptionsInstance != null && !formOptionsInstance.IsDisposed)
                 {
@@ -526,12 +382,158 @@ namespace Take5
 
         private void TakeBreak_MouseEnter(object sender, EventArgs e)
         {
-            picSteam.Visible=true;
+            picSteam.Visible = true;
         }
 
         private void TakeBreak_MouseLeave(object sender, EventArgs e)
         {
             picSteam.Visible = false;
         }
+
+        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            showOptions();
+        }
+
+        private void Tray_Options_Click(object sender, EventArgs e)
+        {
+            showOptions();
+        }
+
+        private void Tray_TakeBreakNow_Click(object sender, EventArgs e)
+        {
+            minsRemain = 0;
+            secsRemain = 0;
+        }
+
+        private void Tray_Reset_Click(object sender, EventArgs e)
+        {
+            minsRemain = countMins;
+            secsRemain = 0;
+        }
+
+        private void Tray_RunAtStartup_Click(object sender, EventArgs e)
+        {
+            RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+            if (trayMenu.MenuItems[3].Checked == false)
+            {
+                rkApp.SetValue("Take5", Application.ExecutablePath.ToString());
+                trayMenu.MenuItems[3].Checked = true;
+            }
+            else
+            {
+                rkApp.DeleteValue("Take5", true);
+                trayMenu.MenuItems[3].Checked = false;
+            }
+        }
+
+        private void Tray_Exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void timerCountdown_Tick(object sender, EventArgs e)
+        {
+            string countdown = secsRemain.ToString();
+
+            if (countdown.Length == 1)
+                countdown = "0" + countdown;
+
+            trayIcon.Text = minsRemain.ToString() + ":" + countdown;
+
+            if (pauseWhenFullscreen && userInFullscreen())
+                return;
+
+            if (resetWhenIdle && userIdle())
+            {
+                minsRemain = countMins;
+                secsRemain = 0;
+                return;
+            }
+
+            if (secsRemain > 0)
+                secsRemain--;
+            else
+            {
+                secsRemain = 59;
+
+                if (minsRemain > 0)
+                    minsRemain--;
+                else
+                {
+                    scrX = GetSystemMetrics(SM_CXSCREEN);
+                    scrY = GetSystemMetrics(SM_CYSCREEN);
+
+                    this.Opacity = 0;
+                    this.Show();
+
+                    //check if coffee cup outside screen bounds
+                    if (this.Left < 0)
+                        this.Left = 0;
+                    if (this.Left + this.Width > scrX)
+                        this.Left = scrX - this.Width;
+                    if (this.Top < 0)
+                        this.Top = 0;
+                    if (this.Top + this.Height > scrY)
+                        this.Top = scrY - this.Height - 24;
+
+                    //TakeBreak.Text = randomButtonText();
+                    TakeBreak.Text = "You need to take a break";
+
+                    if (playBeep)
+                        PlaySound(Application.StartupPath + "\\beep.wav", 0, SND_ASYNC);
+
+                    effect = Fade.FadeIn;
+                    timerFadeEffect.Enabled = true;
+                    timerCountdown.Enabled = false;
+                }
+            }
+        }
+
+        private void timerBreak_Tick(object sender, EventArgs e)
+        {
+            TakeBreak.Text = breakSecsRemain.ToString() + " seconds left";
+            if (playTicks)
+                PlaySound(Application.StartupPath + "\\tick.wav", 0, SND_ASYNC);
+
+            if (breakSecsRemain > 0)
+                breakSecsRemain--;
+            else
+            {
+                if (playBeep)
+                    PlaySound(Application.StartupPath + "\\beep2.wav", 0, SND_ASYNC);
+
+                effect = Fade.FadeOut;
+                timerFadeEffect.Enabled = true;
+                timerBreak.Enabled = false;
+
+                TakeBreak.Enabled = true;
+            }
+        }
+
+        private void timerFadeEffect_Tick(object sender, EventArgs e)
+        {
+            if (effect == Fade.FadeIn)
+            {
+                if (this.Opacity < 1)
+                    this.Opacity += 0.05;
+                else
+                    timerFadeEffect.Enabled = false;
+            }
+            else
+            {
+                if (this.Opacity > 0)
+                    this.Opacity -= 0.05;
+                else
+                {
+                    minsRemain = countMins;
+                    timerCountdown.Enabled = true;
+                    timerFadeEffect.Enabled = false;
+                    this.Hide();
+                }
+            }
+        }
+
     }
 }

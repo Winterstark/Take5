@@ -90,7 +90,7 @@ namespace Take5
                 file.WriteLine(formMainInstance.firstRun);
                 file.Close();
 
-                formMainInstance.loadOptions();
+                formMainInstance.LoadOptions();
             }
             else
                 MessageBox.Show("Enter custom color in the following format: <color-name> (<R>, <G>, <B>)", "Invalid coaster color value");
@@ -107,7 +107,7 @@ namespace Take5
             if (formMainInstance.firstRun)
             {
                 formMainInstance.firstRun = false;
-                formMainInstance.saveOptions();
+                formMainInstance.SaveOptions();
             }
 
             //tutorial
