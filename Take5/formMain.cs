@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Drawing.Drawing2D;
 using Microsoft.Win32;
+using System.IO;
 
 
 namespace Take5
@@ -494,6 +495,11 @@ namespace Take5
                     timerFadeEffect.Enabled = true;
                     timerCountdown.Enabled = false;
                 }
+
+                //save countdown as percentage in text file
+                StreamWriter file = new StreamWriter(Application.StartupPath + "\\break_countdown.txt");
+                file.WriteLine((int)((float)(minsRemain + 1) / countMins * 100));
+                file.Close();
             }
         }
         
