@@ -55,6 +55,7 @@ namespace Take5
         private formOptions formOptionsInstance;
         private Fade effect;
         private ContextMenu trayMenu;
+        private DateTime prevTick;
         private string coasterColor;
         private int scrX, scrY, prevX, prevY;
         private int countMins, breakSecs, countIdleSeconds = 0;
@@ -303,6 +304,7 @@ namespace Take5
 
             trayIcon.ContextMenu = trayMenu;
 
+            prevTick = DateTime.Now;
             timerCountdown.Enabled = true;
 
             RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
@@ -450,13 +452,20 @@ namespace Take5
             trayIcon.Text = minsRemain.ToString() + ":" + countdown;
 
             if (pauseWhenFullscreen && userInFullscreen())
-                return;
-
-            if (resetWhenIdle && userIdle())
             {
-                minsRemain = countMins;
-                secsRemain = 0;
+                prevTick = DateTime.Now;
                 return;
+            }
+
+            if (resetWhenIdle)
+            {
+                if (userIdle() || DateTime.Now.Subtract(prevTick).TotalSeconds > breakSecs) //resets the timer when the user is idle and when the computer wakes from a sleep state
+                {
+                    minsRemain = countMins;
+                    secsRemain = 0;
+                    prevTick = DateTime.Now;
+                    return;
+                }
             }
 
             if (secsRemain > 0)
@@ -508,6 +517,8 @@ namespace Take5
                     //file in use; save countdown later
                 }
             }
+
+            prevTick = DateTime.Now;
         }
         
         private void timerFadeEffect_Tick(object sender, EventArgs e)
@@ -526,8 +537,11 @@ namespace Take5
                 else
                 {
                     minsRemain = countMins;
+                    prevTick = DateTime.Now;
+
                     timerCountdown.Enabled = true;
                     timerFadeEffect.Enabled = false;
+
                     this.Hide();
                 }
             }
