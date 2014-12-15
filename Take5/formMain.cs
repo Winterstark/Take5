@@ -497,9 +497,16 @@ namespace Take5
                 }
 
                 //save countdown as percentage in text file
-                StreamWriter file = new StreamWriter(Application.StartupPath + "\\break_countdown.txt");
-                file.WriteLine((int)((float)(minsRemain + 1) / countMins * 100));
-                file.Close();
+                try
+                {
+                    StreamWriter file = new StreamWriter(Application.StartupPath + "\\break_countdown.txt");
+                    file.WriteLine((int)((float)(minsRemain + 1) / countMins * 100));
+                    file.Close();
+                }
+                catch
+                {
+                    //file in use; save countdown later
+                }
             }
         }
         
