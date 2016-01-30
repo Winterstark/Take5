@@ -65,7 +65,7 @@ namespace Take5
         public bool firstRun;
         private bool movedAround;
         private bool pauseWhenFullscreen, resetWhenIdle, playBeep, playTicks;
-        private bool notifiedAboutBreakComing;
+
 
         private bool userInFullscreen()
         {
@@ -147,7 +147,6 @@ namespace Take5
             {
                 minsRemain = countMins;
                 secsRemain = 0;
-                notifiedAboutBreakComing = false;
             }
         }
 
@@ -476,16 +475,7 @@ namespace Take5
                 secsRemain = 59;
 
                 if (minsRemain > 0)
-                {
-                    // check if time left has become less than 5% of total time.
-                    // if so popup up a balloon bubble to notify a break is coming soon.
-                    if (!notifiedAboutBreakComing && (double)minsRemain / countMins <= 0.05) // 0.05 is the 5%
-                    {
-                        trayIcon.ShowBalloonTip(5000, "Take5", "Break coming in " + minsRemain.ToString() + " min(s)...", ToolTipIcon.Info);
-                        notifiedAboutBreakComing = true;
-                    }
                     minsRemain--;
-                }                    
                 else
                 {
                     scrX = GetSystemMetrics(SM_CXSCREEN);
@@ -513,8 +503,6 @@ namespace Take5
                     effect = Fade.In;
                     timerFadeEffect.Enabled = true;
                     timerCountdown.Enabled = false;
-
-                    notifiedAboutBreakComing = false; // reset toggle
                 }
 
                 //save countdown as percentage in text file
