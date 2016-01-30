@@ -313,7 +313,7 @@ namespace Take5
 
             //first run?
             if (firstRun)
-                trayIcon.ShowBalloonTip(10000, "Take5", "First time running Take5? Double click this icon to view options.", ToolTipIcon.Info);
+                trayIcon.ShowBalloonTip(10000, "Take5", "First time running Take5? Click this icon to view options.", ToolTipIcon.Info);
         }
 
         private void formMain_Resize(object sender, EventArgs e)
@@ -393,7 +393,7 @@ namespace Take5
             picSteam.Visible = false;
         }
 
-        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void trayIcon_MouseClick(object sender, MouseEventArgs e)
         {
             showOptions();
         }
