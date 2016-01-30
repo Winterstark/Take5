@@ -495,6 +495,7 @@ namespace Take5
                         this.Top = scrY - this.Height - 24;
 
                     //TakeBreak.Text = randomButtonText();
+                    TakeBreak.TextAlign = ContentAlignment.BottomCenter;
                     TakeBreak.Text = "You need to take a break";
 
                     if (playBeep)
@@ -549,7 +550,8 @@ namespace Take5
 
         private void timerBreak_Tick(object sender, EventArgs e)
         {
-            TakeBreak.Text = breakSecsRemain.ToString() + " seconds left";
+            TakeBreak.TextAlign = ContentAlignment.MiddleCenter;
+            TakeBreak.Text = breakSecsRemain.ToString(); // display seconds left in the middle of the cup
             if (playTicks)
                 PlaySound(Application.StartupPath + "\\tick.wav", 0, SND_ASYNC);
 
