@@ -313,7 +313,21 @@ namespace Take5
 
             //first run?
             if (firstRun)
+            {
+                if (trayMenu.MenuItems[3].Checked == false) // if toggle not already set for "Run at startup"
+                {
+                    var res = MessageBox.Show("Always run Take5 on startup of this computer?", "Take5", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
+                    {
+                        RunAtStartup(); // Calling this "toggle" function should work
+                    }
+                }
+
                 trayIcon.ShowBalloonTip(10000, "Take5", "First time running Take5? Double click this icon to view options.", ToolTipIcon.Info);
+            }
+
+            firstRun = false; // set this now and save so that the users does not potentially get above msgbox on mutiple runs
+            SaveOptions();
         }
 
         private void formMain_Resize(object sender, EventArgs e)
@@ -422,6 +436,11 @@ namespace Take5
         }
 
         private void Tray_RunAtStartup_Click(object sender, EventArgs e)
+        {
+            RunAtStartup();
+        }
+
+        private void RunAtStartup()
         {
             RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 

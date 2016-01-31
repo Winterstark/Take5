@@ -104,12 +104,6 @@ namespace Take5
 
         private void formOptions_Load(object sender, EventArgs e)
         {
-            if (formMainInstance.firstRun)
-            {
-                formMainInstance.firstRun = false;
-                formMainInstance.SaveOptions();
-            }
-
             //tutorial
             new Tutorial(Application.StartupPath + "\\tutorial.txt", this);
         }
